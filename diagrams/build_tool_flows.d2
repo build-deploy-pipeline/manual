@@ -1,0 +1,18 @@
+shape: sequence_diagram
+
+build_tool: jenkins
+git: github
+docker_registry: docker_registry
+
+step1(도커이미지 생성): {
+  build_tool -> git: git clone user repo.
+  build_tool -> build_tool: docker build
+  build_tool -> docker_registry: docker push
+}
+
+step2(manifest 업데이트): {
+  build_tool -> git: check manifest repo. if not exist, create repo
+  build_tool -> git: git clone manifest repo
+  build_tool -> git: update values.yaml
+  build_tool -> git: git push
+}
