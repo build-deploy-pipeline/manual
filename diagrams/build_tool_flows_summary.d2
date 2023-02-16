@@ -1,0 +1,13 @@
+shape: sequence_diagram
+
+build_tool: jenkins
+build_tool -> docker registry: 1. docker build&push
+
+manifest git: manifest git repo
+build_tool -> manifest git: 2. update manifset
+build_tool -> argocd: 3. manaul argocd app sync
+argocd -> manifest git: 4. reference manifest repo {
+  style: {
+    stroke-dash: 3
+  }
+}
